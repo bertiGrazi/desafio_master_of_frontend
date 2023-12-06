@@ -11,8 +11,9 @@ export function Groups() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#2196F3',
     alignItems: 'center',
     justifyContent: 'center',
+    color: '#003785'
   },
 });
