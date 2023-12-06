@@ -5,7 +5,7 @@ import * as S from './styles';
 export function Groups() {
   return (
     <S.Container>
-      <Header showBackButton/>
+      <Header/>
       <Highlight 
         title='Encontre Seu Carro Ideal Agora!'
         subtitle='Explore. Escolha. Dirija. Seu Novo Carro Está a Apenas um Toque de Distância!'
