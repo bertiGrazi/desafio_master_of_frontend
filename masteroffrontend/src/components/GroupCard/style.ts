@@ -1,5 +1,5 @@
 import { TouchableOpacity } from "react-native";
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
 import { Jeep } from 'phosphor-react-native'
 
 export const Container = styled(TouchableOpacity)`
@@ -18,9 +18,11 @@ export const Container = styled(TouchableOpacity)`
 `
 
 export const Title = styled.Text`
-  font-size: ${({ theme }: { theme: any }) => theme.FONT_SIZE.MD}px;
-  color: ${({ theme }: { theme: any }) => theme.COLORS.GRAY_200};
-  font-family: ${({ theme }: { theme: any }) => theme.FONT_FAMILY.REGULAR};
+  ${({ theme }: { theme: any }) =>css`
+    font-size: ${theme.FONT_SIZE.MD}px;
+    color: ${theme.COLORS.GRAY_200};
+    font-family: ${theme.FONT_FAMILY.REGULAR};
+`};
 `
 
 export const Icon = styled(Jeep).attrs(({ theme }: { theme: any }) => ({
