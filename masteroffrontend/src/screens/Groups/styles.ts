@@ -1,13 +1,13 @@
 import styled from 'styled-components/native';
 
+type ThemeProp = { theme: any };
+
 export const Container = styled.View`
     flex: 1;
-    background-color: #2196F3;
-    align-items: center;
-    justify-content: center;
+    background-color: $({ theme }: ThemeProp) => theme.COLORS.GRAY_600;
+    padding: 24px;
 `;
 
 export const Title = styled.Text`
-    color: #FFFFF;
-    font-size: 32px;
+
 `
