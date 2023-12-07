@@ -58,6 +58,7 @@ export function Details() {
           onPress={() =>{}}        
         />
       )}
+      showsVerticalScrollIndicator={false}
     />
    
     
