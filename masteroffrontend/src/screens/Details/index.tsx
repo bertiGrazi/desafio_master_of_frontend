@@ -1,5 +1,7 @@
 import { Header } from "@components/Header"
 import { Highlight } from "@components/Highlight";
+import { ButtonIcon } from "@components/ButtonIcon";
+
 import { Container } from "./style";
 
 export function Details() {
@@ -9,6 +11,8 @@ export function Details() {
       <Highlight 
         title="Fiat Argo"
       />
+
+      <ButtonIcon />
     </Container>
   )
 }
