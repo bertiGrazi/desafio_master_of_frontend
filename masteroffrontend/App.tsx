@@ -7,6 +7,8 @@ import { Loading } from '@components/Loading'
 import theme from './src/theme'
 
 import { Groups } from '@screens/Groups';
+import { NewCar } from '@screens/NewCar';
+import { Details } from '@screens/Details';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -20,7 +22,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-     {fontsLoaded ?  <Groups /> : <Loading />}
+     {fontsLoaded ?  <Details /> : <Loading />}
     </ThemeProvider>
   );
 }

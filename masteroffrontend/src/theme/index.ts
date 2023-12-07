@@ -5,7 +5,7 @@ export default {
     BLUE_700: '#0B7FDF',
     BLUE_500: '#2196F3',
 
-    RED: '#F37E21',
+    ORANGE: '#F37E21',
     ORANGE_DARK: '#EF6C00',
 
     GRAY_700: '#121214',
