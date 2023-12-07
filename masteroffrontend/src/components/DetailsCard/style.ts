@@ -24,9 +24,9 @@ export const BrandName = styled.Text`
 `
 
 export const Icon = styled(MaterialIcons).attrs(({ theme }: { theme: any }) => ({
-  size: 24,
+  size: 20,
   color: theme.COLORS.GRAY_200,
 }))`
   margin-left: 16px;
-  margin-right: 4px;
+  margin-right: 8px;
 `;

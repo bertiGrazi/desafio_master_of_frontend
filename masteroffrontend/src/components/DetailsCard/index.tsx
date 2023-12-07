@@ -10,7 +10,7 @@ export function DetailsCard({ name, onPress }: Props) {
   return (
     <Container>
       <Icon  
-        name="person"
+        name="branding-watermark"
       />
       <BrandName>
         {name}
