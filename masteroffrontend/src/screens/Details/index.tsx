@@ -6,13 +6,14 @@ import { Highlight } from "@components/Highlight";
 import { ButtonIcon } from "@components/ButtonIcon";
 import { Input } from "@components/Input";
 import { Filter } from "@components/Filter";
+import { DetailsCard } from "@components/DetailsCard";
 
 import { Container, Form, HeaderList, Number } from "./style";
 
 
 export function Details() {
   const [select, setSelect] = useState('Marca')
-  const [numbers, setNumbers] = useState([])
+  const [numbers, setNumbers] = useState(['Fiat'])
 
   return (
     <Container>
@@ -47,6 +48,17 @@ export function Details() {
       {numbers.length}
     </Number>
     </HeaderList>
+
+    <FlatList 
+      data={numbers}
+      keyExtractor={(item) => item}
+      renderItem={({ item }) => (
+        <DetailsCard 
+          name={item} 
+          onPress={() =>{}}        
+        />
+      )}
+    />
    
     
     </Container>
