@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Alert, FlatList } from 'react-native'
+import { useState, useEffect, useRef } from 'react';
+import { Alert, FlatList, TextInput } from 'react-native'
 import { useRoute } from '@react-navigation/native';
 
 import { Header } from "@components/Header"
@@ -26,8 +26,9 @@ export function Details() {
   const [numbers, setNumbers] = useState<DetailStorageDTO[]>([])
 
   const route = useRoute();
-
   const { group } = route.params as RouteParams;
+
+  const newCarNameInputRef = useRef<TextInput>(null)
 
   async function handleAddDetails() {
     if(newCarModel.trim().length === 0) {
@@ -41,6 +42,10 @@ export function Details() {
 
      try {
       await detaildAddByGroup(newCar, group)
+
+      newCarNameInputRef.current?.blur();
+
+      setNewCarModel('')
       fetchCarsByBrand();
      } catch(error) {
       if (error instanceof AppError) {
@@ -76,9 +81,13 @@ export function Details() {
 
     <Form>
       <Input 
+        inputRef={newCarNameInputRef}
         onChangeText={setNewCarModel}
+        value={newCarModel}
         placeholder="Pesquisar"
         autoCorrect={false}
+        onSubmitEditing={handleAddDetails}
+        returnKeyType="done"
         />
         <ButtonIcon 
           icon="add" 
