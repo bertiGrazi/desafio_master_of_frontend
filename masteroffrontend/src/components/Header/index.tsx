@@ -13,7 +13,7 @@ export function Header({ showBackButton = false }: Props) {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   function handleGoBack() {
-    navigation.goBack()
+    navigation.navigate('groups')
   }
   
   return (
