@@ -12,8 +12,7 @@ import * as S from './styles';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export function Groups() {
-  //'Fiat Argo', 'Volkswagen Gol', 'Hyundai HB20'
-  const [groupsCar, setgroupsCar] = useState<string[]>(['Fiat Argo']);
+  const [groupsCar, setgroupsCar] = useState<string[]>(['']);
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
