@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { FlatList } from 'react-native'
+import { ParamListBase, useNavigation } from '@react-navigation/native'
 
 import { Header } from '@components/Header';
 import { Highlight } from '@components/Highlight';
@@ -8,10 +9,17 @@ import { ListEmpty } from '@components/ListEmpty';
 import { Button } from '@components/Button';
 
 import * as S from './styles';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export function Groups() {
   //'Fiat Argo', 'Volkswagen Gol', 'Hyundai HB20'
   const [groupsCar, setgroupsCar] = useState<string[]>(['Fiat Argo']);
+
+  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+
+  function handleNewCar() {
+    navigation.navigate('newCar');
+  }
 
   return (
     <S.Container>
@@ -39,6 +47,7 @@ export function Groups() {
         <Button 
           title='Anunciar Carro'
           type='PRIMARY'
+          onPress={handleNewCar}
         />
     </S.Container>
   );
