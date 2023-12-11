@@ -1,3 +1,5 @@
+import { groupCreate } from "@storage/group/groupCreate";
+
 import { useState } from "react";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -8,13 +10,19 @@ import { Highlight } from "@components/Highlight";
 import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 
+
 export function NewCar() {
   const [group, setGroup] = useState('')
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   
-  function handleNewCar() {
-    navigation.navigate('details', { group })
+  async function handleNewCar() {
+    try {
+      await groupCreate(group)
+      navigation.navigate('details', { group })
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
