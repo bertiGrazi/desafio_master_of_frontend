@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FlatList } from 'react-native'
+import { Alert, FlatList } from 'react-native'
 import { useRoute } from '@react-navigation/native';
 
 import { Header } from "@components/Header"
@@ -10,19 +10,46 @@ import { Filter } from "@components/Filter";
 import { DetailsCard } from "@components/DetailsCard";
 
 import { Container, Form, HeaderList, Number } from "./style";
+import { AppError } from '@utils/AppError';
+import { detaildAddByGroup } from '@storage/details/detaildAddByGroup'
+import { detailsGetByGroup } from '@storage/details/detailsGetByGroup';
 
 type RouteParams = {
   group: string
 }
 
 export function Details() {
-  const [select, setSelect] = useState('Marca')
+  const [newCarModel, setNewCarModel] = useState('')
+  const [brand, setBrand] = useState('Marca')
   const [numbers, setNumbers] = useState(['Fiat'])
 
   const route = useRoute();
 
   const { group } = route.params as RouteParams;
 
+  async function handleAddDetails() {
+    if(newCarModel.trim().length === 0) {
+      return Alert.alert('Ops!', 'Informe o Modelo do carro que queira adicionar')
+     }
+
+     const newCar = {
+      carModel: newCarModel,
+      brand
+     }
+
+     try {
+      await detaildAddByGroup(newCar, group)
+      const cars = await detailsGetByGroup(group)
+      console.log(cars)
+     } catch(error) {
+      if (error instanceof AppError) {
+        Alert.alert('Ops', error.message)
+      } else {
+        console.log(error)
+        Alert.alert('Ops', 'Não foi possível adicionar')
+      }
+     }
+  }
   return (
     <Container>
       <Header showBackButton />
@@ -33,11 +60,13 @@ export function Details() {
 
     <Form>
       <Input 
+        onChangeText={setNewCarModel}
         placeholder="Pesquisar"
         autoCorrect={false}
         />
         <ButtonIcon 
           icon="add" 
+          onPress={handleAddDetails}
         />
     </Form>
     <HeaderList>
@@ -46,9 +75,9 @@ export function Details() {
       keyExtractor={(item) => item}
       renderItem={({ item }) => (
           <Filter 
-            isActive={item === select} 
+            isActive={item === brand} 
             title={item} 
-            onPress={() => setSelect(item)}
+            onPress={() => setBrand(item)}
           />
       )}
       horizontal
@@ -75,3 +104,5 @@ export function Details() {
     </Container>
   )
 }
+
+
