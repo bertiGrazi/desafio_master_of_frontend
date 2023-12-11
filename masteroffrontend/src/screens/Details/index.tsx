@@ -16,6 +16,7 @@ import { detaildAddByGroup } from '@storage/details/detaildAddByGroup'
 import { detailGetByGroupAndTeam } from '@storage/details/detailGetByGroupandTeam';
 import { DetailStorageDTO } from '@storage/details/DetailStorageDTO';
 import { Button } from '@components/Button';
+import { detailsRemoveByGroup } from '@storage/details/detailsRemoveByGroup';
 
 type RouteParams = {
   group: string
@@ -58,10 +59,6 @@ export function Details() {
      }
   }
 
-  useEffect(() => {
-    console.log("useEffect executed")
-    fetchCarsByBrand()
-  }, [brand])
   async function fetchCarsByBrand() {
     try {
       const carByBrand = await detailGetByGroupAndTeam(group, brand)
@@ -71,6 +68,21 @@ export function Details() {
       Alert.alert('Ops', 'Não foi possível obter os dados filtrados do modelo selecionado.')
     }
   }
+
+  async function handleCarNameRemove(carName: string) {
+    try {
+      await detailsRemoveByGroup(carName, group);
+      fetchCarsByBrand()
+    } catch (error) {
+      console.log(error)
+      Alert.alert('Ops', 'Não foi possível remover o carro selecionado.')
+    }
+  }
+
+  useEffect(() => {
+    console.log("useEffect executed")
+    fetchCarsByBrand()
+  }, [brand])
 
   return (
     <Container>
@@ -120,7 +132,7 @@ export function Details() {
       renderItem={({ item }) => (
         <DetailsCard 
           name={item.carModel} 
-          onPress={() =>{}}        
+          onPress={() => handleCarNameRemove(item.carModel)}
         />
       )}
       showsVerticalScrollIndicator={false}
