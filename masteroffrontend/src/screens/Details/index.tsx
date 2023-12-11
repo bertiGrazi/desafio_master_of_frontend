@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Alert, FlatList, TextInput } from 'react-native'
-import { useRoute } from '@react-navigation/native';
+import { useRoute, useNavigation, ParamListBase } from '@react-navigation/native';
 
 import { Header } from "@components/Header"
 import { Highlight } from "@components/Highlight";
@@ -16,7 +16,10 @@ import { detaildAddByGroup } from '@storage/details/detaildAddByGroup'
 import { detailGetByGroupAndTeam } from '@storage/details/detailGetByGroupandTeam';
 import { DetailStorageDTO } from '@storage/details/DetailStorageDTO';
 import { Button } from '@components/Button';
+
 import { detailsRemoveByGroup } from '@storage/details/detailsRemoveByGroup';
+import { groupRemoveByName } from '@storage/group/groupRemoveByName';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type RouteParams = {
   group: string
@@ -27,6 +30,8 @@ export function Details() {
   const [brand, setBrand] = useState('Marca')
   const [numbers, setNumbers] = useState<DetailStorageDTO[]>([])
 
+  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+ 
   const route = useRoute();
   const { group } = route.params as RouteParams;
 
@@ -69,6 +74,17 @@ export function Details() {
     }
   }
 
+  async function groupRemove() {
+    try {
+      await groupRemoveByName(group)
+      navigation.navigate('groups')
+      
+    } catch (error) {
+      console.log(error)
+      Alert.alert('Ops', 'Não foi possível remover o modelo selecionado.')
+    }
+  }
+
   async function handleCarNameRemove(carName: string) {
     try {
       await detailsRemoveByGroup(carName, group);
@@ -77,6 +93,20 @@ export function Details() {
       console.log(error)
       Alert.alert('Ops', 'Não foi possível remover o carro selecionado.')
     }
+  }
+
+  async function handleGroupRemove() {
+    Alert.alert(
+      'Remover',
+      'Deseja remover o carro selecionado?',
+      [
+        {text: 'Não', style: 'cancel'},
+        {text: 'Sim', onPress: () => {
+          groupRemove()
+        }},
+      ]
+
+    )
   }
 
   useEffect(() => {
@@ -140,6 +170,7 @@ export function Details() {
     <Button
       title='Mande uma mensagem'
       type='SECONDARY'
+      onPress={handleGroupRemove}
     />
     </Container>
   )
