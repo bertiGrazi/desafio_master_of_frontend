@@ -17,7 +17,7 @@ export function DetailsCard({ name, onPress }: Props) {
       </BrandName>
 
       <ButtonIcon 
-          icon='call'
+          icon='delete'
           type='SECONDARY'
           onPress={onPress}
       />

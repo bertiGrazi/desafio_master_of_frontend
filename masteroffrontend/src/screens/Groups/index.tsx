@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { groupsGetAll } from '@storage/group/groupsGetAll';
+
+import { useState, useCallback } from 'react'
 import { FlatList } from 'react-native'
-import { ParamListBase, useNavigation } from '@react-navigation/native'
+import { ParamListBase, useNavigation, useFocusEffect } from '@react-navigation/native'
 
 import { Header } from '@components/Header';
 import { Highlight } from '@components/Highlight';
@@ -11,15 +13,34 @@ import { Button } from '@components/Button';
 import * as S from './styles';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+
 export function Groups() {
-  //'Fiat Argo', 'Volkswagen Gol', 'Hyundai HB20'
-  const [groupsCar, setgroupsCar] = useState<string[]>(['Fiat Argo']);
+  const [groupsCar, setgroupsCar] = useState<string[]>(['']);
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   function handleNewCar() {
     navigation.navigate('newCar');
   }
+
+  async function fetchGroups() {
+    try {
+      const data = await groupsGetAll();
+      setgroupsCar(data);
+
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  function handleOpenGroup(group: string) {
+    navigation.navigate('details', { group })
+  }
+
+  useFocusEffect(useCallback(() => {
+    console.log("useFocusEffect executed")
+    fetchGroups();
+  },[]));
 
   return (
     <S.Container>
@@ -35,6 +56,7 @@ export function Groups() {
         renderItem={({ item }) => (
           <GroupCard 
             title={item} 
+            onPress={() => handleOpenGroup(item)}
           />
         )}
         contentContainerStyle={groupsCar.length === 0 && { flex: 1 }}
@@ -44,7 +66,7 @@ export function Groups() {
         />
         )}
         />
-        <Button 
+        <Button
           title='Anunciar Carro'
           type='PRIMARY'
           onPress={handleNewCar}
