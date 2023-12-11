@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { FlatList } from 'react-native'
+import { useRoute } from '@react-navigation/native';
 
 import { Header } from "@components/Header"
 import { Highlight } from "@components/Highlight";
@@ -10,17 +11,26 @@ import { DetailsCard } from "@components/DetailsCard";
 
 import { Container, Form, HeaderList, Number } from "./style";
 
+type RouteParams = {
+  group: string
+}
 
 export function Details() {
   const [select, setSelect] = useState('Marca')
   const [numbers, setNumbers] = useState(['Fiat'])
 
+  const route = useRoute();
+
+  const { group } = route.params as RouteParams;
+
   return (
     <Container>
       <Header showBackButton />
+
       <Highlight 
-        title="Fiat Argo"
+        title={group}
       />
+
     <Form>
       <Input 
         placeholder="Pesquisar"

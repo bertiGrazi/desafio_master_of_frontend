@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
@@ -8,10 +9,12 @@ import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 
 export function NewCar() {
+  const [group, setGroup] = useState('')
+
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   
   function handleNewCar() {
-    navigation.navigate('details', { group: 'Fiat Argo'})
+    navigation.navigate('details', { group })
   }
 
   return (
@@ -23,7 +26,10 @@ export function NewCar() {
           title="Conecte-se com milhares de compradores interessados"
           subtitle="Crie seu anúncio agora e coloque seu carro na via rápida para um novo lar!"
         />
-        <Input placeholder="Marca do carro"/>
+        <Input 
+          placeholder="Marca do carro"
+          onChangeText={setGroup}
+          />
         {/* <Input placeholder="Modelo do carro"/>
         <Input placeholder="Ano de fabricação"/>
         <Input placeholder="Valor"/>
