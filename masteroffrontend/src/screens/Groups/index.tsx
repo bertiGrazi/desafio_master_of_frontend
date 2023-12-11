@@ -33,6 +33,10 @@ export function Groups() {
     }
   }
 
+  function handleOpenGroup(group: string) {
+    navigation.navigate('details', { group })
+  }
+
   useFocusEffect(useCallback(() => {
     console.log("useFocusEffect executed")
     fetchGroups();
@@ -52,6 +56,7 @@ export function Groups() {
         renderItem={({ item }) => (
           <GroupCard 
             title={item} 
+            onPress={() => handleOpenGroup(item)}
           />
         )}
         contentContainerStyle={groupsCar.length === 0 && { flex: 1 }}
@@ -61,7 +66,7 @@ export function Groups() {
         />
         )}
         />
-        <Button 
+        <Button
           title='Anunciar Carro'
           type='PRIMARY'
           onPress={handleNewCar}
