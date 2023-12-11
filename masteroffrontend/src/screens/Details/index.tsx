@@ -15,6 +15,7 @@ import { AppError } from '@utils/AppError';
 import { detaildAddByGroup } from '@storage/details/detaildAddByGroup'
 import { detailGetByGroupAndTeam } from '@storage/details/detailGetByGroupandTeam';
 import { DetailStorageDTO } from '@storage/details/DetailStorageDTO';
+import { Button } from '@components/Button';
 
 type RouteParams = {
   group: string
@@ -96,7 +97,7 @@ export function Details() {
     </Form>
     <HeaderList>
     <FlatList 
-      data={['Marca', 'Modelo','Ano']}
+      data={['Marca','Ano','Cidade','Valor']}
       keyExtractor={(item) => item}
       renderItem={({ item }) => (
           <Filter 
@@ -124,8 +125,10 @@ export function Details() {
       )}
       showsVerticalScrollIndicator={false}
     />
-   
-    
+    <Button
+      title='Mande uma mensagem'
+      type='SECONDARY'
+    />
     </Container>
   )
 }
