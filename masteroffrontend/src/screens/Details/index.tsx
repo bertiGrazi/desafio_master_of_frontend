@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Alert, FlatList } from 'react-native'
 import { useRoute } from '@react-navigation/native';
 
@@ -11,8 +11,10 @@ import { DetailsCard } from "@components/DetailsCard";
 
 import { Container, Form, HeaderList, Number } from "./style";
 import { AppError } from '@utils/AppError';
+
 import { detaildAddByGroup } from '@storage/details/detaildAddByGroup'
-import { detailsGetByGroup } from '@storage/details/detailsGetByGroup';
+import { detailGetByGroupAndTeam } from '@storage/details/detailGetByGroupandTeam';
+import { DetailStorageDTO } from '@storage/details/DetailStorageDTO';
 
 type RouteParams = {
   group: string
@@ -21,7 +23,7 @@ type RouteParams = {
 export function Details() {
   const [newCarModel, setNewCarModel] = useState('')
   const [brand, setBrand] = useState('Marca')
-  const [numbers, setNumbers] = useState(['Fiat'])
+  const [numbers, setNumbers] = useState<DetailStorageDTO[]>([])
 
   const route = useRoute();
 
@@ -39,8 +41,7 @@ export function Details() {
 
      try {
       await detaildAddByGroup(newCar, group)
-      const cars = await detailsGetByGroup(group)
-      console.log(cars)
+      fetchCarsByBrand();
      } catch(error) {
       if (error instanceof AppError) {
         Alert.alert('Ops', error.message)
@@ -50,6 +51,21 @@ export function Details() {
       }
      }
   }
+
+  useEffect(() => {
+    console.log("useEffect executed")
+    fetchCarsByBrand()
+  }, [brand])
+  async function fetchCarsByBrand() {
+    try {
+      const carByBrand = await detailGetByGroupAndTeam(group, brand)
+      setNumbers(carByBrand)
+    } catch (error) {
+      console.log(error)
+      Alert.alert('Ops', 'Não foi possível obter os dados filtrados do modelo selecionado.')
+    }
+  }
+
   return (
     <Container>
       <Header showBackButton />
@@ -90,10 +106,10 @@ export function Details() {
 
     <FlatList 
       data={numbers}
-      keyExtractor={(item) => item}
+      keyExtractor={(item) => item.carModel}
       renderItem={({ item }) => (
         <DetailsCard 
-          name={item} 
+          name={item.carModel} 
           onPress={() =>{}}        
         />
       )}
