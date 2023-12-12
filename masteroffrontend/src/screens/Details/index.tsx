@@ -39,7 +39,7 @@ export function Details() {
 
   async function handleAddDetails() {
     if(newCarModel.trim().length === 0) {
-      return Alert.alert('Ops!', 'Informe o Modelo do carro que queira adicionar')
+      return Alert.alert('Ops!', 'Insira a informação.')
      }
 
      const newCar = {
