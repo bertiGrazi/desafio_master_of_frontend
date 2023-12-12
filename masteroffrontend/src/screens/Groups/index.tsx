@@ -29,10 +29,11 @@ export function Groups() {
       setIsLoading(true)
       const data = await groupsGetAll();
       setgroupsCar(data);
-      setIsLoading(false)
     } catch (err) {
       console.log(err)
       Alert.alert('Ops', 'Não foi possível obter a listagem...')
+    } finally {
+      setIsLoading(false)
     }
   }
 

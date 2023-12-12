@@ -72,10 +72,11 @@ export function Details() {
       setIsLoading(true)
       const carByBrand = await detailGetByGroupAndTeam(group, brand)
       setNumbers(carByBrand)
-      setIsLoading(false)
     } catch (error) {
       console.log(error)
       Alert.alert('Ops', 'Não foi possível obter os dados filtrados do modelo selecionado.')
+    } finally {
+      setIsLoading(false)
     }
   }
 
