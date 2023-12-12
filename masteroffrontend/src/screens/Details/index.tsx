@@ -13,7 +13,7 @@ import { Container, Form, HeaderList, Number } from "./style";
 import { AppError } from '@utils/AppError';
 
 import { detaildAddByGroup } from '@storage/details/detaildAddByGroup'
-import { detailGetByGroupAndTeam } from '@storage/details/detailGetByGroupandTeam';
+import { detailGetByGroupAndTeam } from '@storage/details/detailGetByGroupAndTeam';
 import { DetailStorageDTO } from '@storage/details/DetailStorageDTO';
 import { Button } from '@components/Button';
 
