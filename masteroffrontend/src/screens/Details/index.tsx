@@ -123,20 +123,25 @@ export function Details() {
       />
 
     <Form>
-      <Input 
-        inputRef={newCarNameInputRef}
-        onChangeText={setNewCarModel}
-        value={newCarModel}
-        placeholder="Pesquisar"
-        autoCorrect={false}
-        onSubmitEditing={handleAddDetails}
-        returnKeyType="done"
-        />
-        <ButtonIcon 
-          icon="add" 
-          onPress={handleAddDetails}
-        />
+      {numbers.length === 0 && (
+        <>
+          <Input 
+            inputRef={newCarNameInputRef}
+            onChangeText={setNewCarModel}
+            value={newCarModel}
+            placeholder="Pesquisar"
+            autoCorrect={false}
+            onSubmitEditing={handleAddDetails}
+            returnKeyType="done"
+          />
+          <ButtonIcon 
+            icon="add" 
+            onPress={handleAddDetails}
+          />
+        </>
+      )}
     </Form>
+
     <HeaderList>
     <FlatList 
       data={['Marca','Ano','Cidade','Valor']}
