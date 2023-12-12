@@ -6,6 +6,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Highlight } from "@components/Highlight";
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
+import { ButtonOutline } from "@components/ButtonOutline";
 
 export function SignIn() {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
@@ -35,7 +36,11 @@ export function SignIn() {
         <Highlight
           title="" 
           subtitle="Ainda não tem acesso?"
-        />    
+        />  
+        <ButtonOutline 
+          title="Criar conta"
+          style={{ marginTop: -12}}
+        />  
       </Content>
     </Container>
   )
