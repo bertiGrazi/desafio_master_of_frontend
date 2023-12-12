@@ -15,6 +15,10 @@ export function SignIn() {
     navigation.navigate('groups')
   }
 
+  async function handleCreateAccount() {
+    navigation.navigate('createAccount')
+  }
+
   return (
     <Container>
       <Content>
@@ -40,6 +44,7 @@ export function SignIn() {
         <ButtonOutline 
           title="Criar conta"
           style={{ marginTop: -12}}
+          onPress={handleCreateAccount}
         />  
       </Content>
     </Container>

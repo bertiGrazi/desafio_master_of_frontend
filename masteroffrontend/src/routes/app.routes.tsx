@@ -5,6 +5,7 @@ import { Groups } from '@screens/Groups';
 import { Details } from '@screens/Details';
 import { NewCar } from '@screens/NewCar'
 import { SignIn } from '@screens/Login/SignIn'
+import { CreateAccount } from '@screens/Login/CreateAccount';
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -26,6 +27,10 @@ export function AppRoutes() {
       <Screen 
         name="signIn" 
         component={SignIn} 
+      />
+      <Screen 
+        name="createAccount" 
+        component={CreateAccount} 
       />
     </Navigator>
   );
