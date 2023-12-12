@@ -17,7 +17,7 @@ export function DetailsCard({ name, onPress }: Props) {
       </BrandName>
 
       <ButtonIcon 
-          icon='delete'
+          icon='delete-outline'
           type='SECONDARY'
           onPress={onPress}
       />

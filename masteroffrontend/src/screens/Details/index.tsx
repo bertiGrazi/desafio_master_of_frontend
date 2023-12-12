@@ -13,7 +13,7 @@ import { Container, Form, HeaderList, Number } from "./style";
 import { AppError } from '@utils/AppError';
 
 import { detaildAddByGroup } from '@storage/details/detaildAddByGroup'
-import { detailGetByGroupAndTeam } from '@storage/details/detailGetByGroupandTeam';
+import { detailGetByGroupAndTeam } from '@storage/details/detailGetByGroupAndTeam';
 import { DetailStorageDTO } from '@storage/details/DetailStorageDTO';
 import { Button } from '@components/Button';
 
@@ -39,7 +39,7 @@ export function Details() {
 
   async function handleAddDetails() {
     if(newCarModel.trim().length === 0) {
-      return Alert.alert('Ops!', 'Informe o Modelo do carro que queira adicionar')
+      return Alert.alert('Ops!', 'Insira a informação.')
      }
 
      const newCar = {
@@ -109,6 +109,10 @@ export function Details() {
     )
   }
 
+  function handleCallTheSeller() {
+    console.log('handleCallTheSeller')
+  }
+
   useEffect(() => {
     console.log("useEffect executed")
     fetchCarsByBrand()
@@ -123,20 +127,25 @@ export function Details() {
       />
 
     <Form>
-      <Input 
-        inputRef={newCarNameInputRef}
-        onChangeText={setNewCarModel}
-        value={newCarModel}
-        placeholder="Pesquisar"
-        autoCorrect={false}
-        onSubmitEditing={handleAddDetails}
-        returnKeyType="done"
-        />
-        <ButtonIcon 
-          icon="add" 
-          onPress={handleAddDetails}
-        />
+      {numbers.length === 0 && (
+        <>
+          <Input 
+            inputRef={newCarNameInputRef}
+            onChangeText={setNewCarModel}
+            value={newCarModel}
+            placeholder={`Insira ${brand}`}
+            autoCorrect={false}
+            onSubmitEditing={handleAddDetails}
+            returnKeyType="done"
+          />
+          <ButtonIcon 
+            icon="add" 
+            onPress={handleAddDetails}
+          />
+        </>
+      )}
     </Form>
+
     <HeaderList>
     <FlatList 
       data={['Marca','Ano','Cidade','Valor']}
@@ -151,9 +160,6 @@ export function Details() {
       horizontal
       
     />
-    <Number>
-      {numbers.length}
-    </Number>
     </HeaderList>
 
     <FlatList 
@@ -167,11 +173,11 @@ export function Details() {
       )}
       showsVerticalScrollIndicator={false}
     />
-    <Button
-      title='Mande uma mensagem'
-      type='SECONDARY'
-      onPress={handleGroupRemove}
-    />
+      <Button
+        title={numbers.length === 0 ? 'Deletar Carro' : 'Mande uma mensagem'}
+        type={numbers.length === 0 ? 'TERCIARY' : 'SECONDARY'}
+        onPress={numbers.length === 0 ? handleGroupRemove : handleCallTheSeller}
+      />
     </Container>
   )
 }
