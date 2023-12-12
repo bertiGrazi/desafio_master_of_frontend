@@ -46,7 +46,7 @@ export function NewCar() {
           subtitle="Crie seu anúncio agora e coloque seu carro na via rápida para um novo lar!"
         />
         <Input 
-          placeholder="Marca do carro"
+          placeholder="Insira o Modelo do Carro"
           onChangeText={setGroup}
           />
         {/* <Input placeholder="Modelo do carro"/>
