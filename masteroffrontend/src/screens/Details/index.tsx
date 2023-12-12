@@ -133,7 +133,7 @@ export function Details() {
             inputRef={newCarNameInputRef}
             onChangeText={setNewCarModel}
             value={newCarModel}
-            placeholder="Pesquisar"
+            placeholder={`Insira ${brand}`}
             autoCorrect={false}
             onSubmitEditing={handleAddDetails}
             returnKeyType="done"
@@ -160,9 +160,6 @@ export function Details() {
       horizontal
       
     />
-    <Number>
-      {numbers.length}
-    </Number>
     </HeaderList>
 
     <FlatList 
