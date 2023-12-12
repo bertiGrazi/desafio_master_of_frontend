@@ -109,6 +109,10 @@ export function Details() {
     )
   }
 
+  function handleCallTheSeller() {
+    console.log('handleCallTheSeller')
+  }
+
   useEffect(() => {
     console.log("useEffect executed")
     fetchCarsByBrand()
@@ -172,11 +176,11 @@ export function Details() {
       )}
       showsVerticalScrollIndicator={false}
     />
-    <Button
-      title='Mande uma mensagem'
-      type='SECONDARY'
-      onPress={handleGroupRemove}
-    />
+      <Button
+        title={numbers.length === 0 ? 'Deletar Carro' : 'Mande uma mensagem'}
+        type={numbers.length === 0 ? 'TERCIARY' : 'SECONDARY'}
+        onPress={numbers.length === 0 ? handleGroupRemove : handleCallTheSeller}
+      />
     </Container>
   )
 }
