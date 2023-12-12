@@ -20,7 +20,7 @@ export const Container = styled(TouchableOpacity)`
 
 export const Icon = styled(MaterialIcons).attrs(({ theme, type }: { theme: any, type: ButtonIconTypeStyleProps}) => ({
   size: 24,
-  color: type === 'PRIMARY' ? theme.COLORS.BLUE_700 : theme.COLORS.ORANGE_DARK
+  color: type === 'PRIMARY' ? theme.COLORS.BLUE_700 : theme.COLORS.RED_DARK
 }))`
 
 `
