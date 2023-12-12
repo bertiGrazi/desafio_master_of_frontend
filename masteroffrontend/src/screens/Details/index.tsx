@@ -1,13 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
 import { Alert, FlatList, TextInput } from 'react-native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useRoute, useNavigation, ParamListBase } from '@react-navigation/native';
 
 import { Header } from "@components/Header"
 import { Highlight } from "@components/Highlight";
+import { Button } from '@components/Button';
 import { ButtonIcon } from "@components/ButtonIcon";
 import { Input } from "@components/Input";
 import { Filter } from "@components/Filter";
 import { DetailsCard } from "@components/DetailsCard";
+import { Loading } from '@components/Loading';
 
 import { Container, Form, HeaderList, Number } from "./style";
 import { AppError } from '@utils/AppError';
@@ -15,17 +18,17 @@ import { AppError } from '@utils/AppError';
 import { detaildAddByGroup } from '@storage/details/detaildAddByGroup'
 import { detailGetByGroupAndTeam } from '@storage/details/detailGetByGroupAndTeam';
 import { DetailStorageDTO } from '@storage/details/DetailStorageDTO';
-import { Button } from '@components/Button';
-
 import { detailsRemoveByGroup } from '@storage/details/detailsRemoveByGroup';
 import { groupRemoveByName } from '@storage/group/groupRemoveByName';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+
 
 type RouteParams = {
   group: string
 }
 
 export function Details() {
+  const [isLoading, setIsLoading] = useState(true)
   const [newCarModel, setNewCarModel] = useState('')
   const [brand, setBrand] = useState('Marca')
   const [numbers, setNumbers] = useState<DetailStorageDTO[]>([])
@@ -66,11 +69,14 @@ export function Details() {
 
   async function fetchCarsByBrand() {
     try {
+      setIsLoading(true)
       const carByBrand = await detailGetByGroupAndTeam(group, brand)
       setNumbers(carByBrand)
     } catch (error) {
       console.log(error)
       Alert.alert('Ops', 'Não foi possível obter os dados filtrados do modelo selecionado.')
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -161,18 +167,21 @@ export function Details() {
       
     />
     </HeaderList>
-
-    <FlatList 
-      data={numbers}
-      keyExtractor={(item) => item.carModel}
-      renderItem={({ item }) => (
-        <DetailsCard 
-          name={item.carModel} 
-          onPress={() => handleCarNameRemove(item.carModel)}
+        {
+          isLoading ? <Loading /> : 
+          <FlatList 
+          data={numbers}
+          keyExtractor={(item) => item.carModel}
+          renderItem={({ item }) => (
+            <DetailsCard 
+              name={item.carModel} 
+              onPress={() => handleCarNameRemove(item.carModel)}
+            />
+          )}
+          showsVerticalScrollIndicator={false}
         />
-      )}
-      showsVerticalScrollIndicator={false}
-    />
+        }
+
       <Button
         title={numbers.length === 0 ? 'Deletar Carro' : 'Mande uma mensagem'}
         type={numbers.length === 0 ? 'TERCIARY' : 'SECONDARY'}
