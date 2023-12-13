@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { Alert } from "react-native";
+
 import { Container, Content } from "./styles";
 
 import { ParamListBase, useNavigation } from "@react-navigation/native";
@@ -9,11 +12,19 @@ import { Button } from "@components/Button";
 import { ButtonOutline } from "@components/ButtonOutline";
 
 export function SignIn() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   async function handleSignIn() {
-    navigation.navigate('groups')
+    if (email && password) {
+      navigation.navigate('groups');
+    } else {
+      Alert.alert('Ops!', 'Por favor, preencha o e-mail e a senha!');
+    }
   }
+  
 
   async function handleCreateAccount() {
     navigation.navigate('createAccount')
@@ -30,6 +41,7 @@ export function SignIn() {
         />
         <Input
            placeholder="Senha"
+           secureTextEntry={true}
         />
         <Button 
           title="Acessar"
