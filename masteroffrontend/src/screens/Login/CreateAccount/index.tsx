@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { Alert } from "react-native";
+
 import { Container, Content } from "./styles";
 
 import { ParamListBase, useNavigation } from "@react-navigation/native";
@@ -9,15 +12,33 @@ import { Input } from "@components/Input";
 import { Button } from "@components/Button";
 
 export function CreateAccount() {
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
-  async function handleSignIn() {
+  const handlePasswordMatch = () => {
+    return password === confirmPassword;
+  };
+
+  function handleSignIn() {
     navigation.navigate('signIn')
   }
 
   async function handleGroup() {
-    navigation.navigate('groups')
+    if (password && confirmPassword) {
+      const passwordsMatch = handlePasswordMatch();
+  
+      if (passwordsMatch) {
+        navigation.navigate('groups');
+      } else {
+        Alert.alert('Ops!', 'As senhas não correspondem!');
+      }
+    } else {
+      Alert.alert('Ops!', 'Por favor, preencha todos os campos!');
+    }
   }
+  
 
   return (
     <Container>
@@ -30,12 +51,19 @@ export function CreateAccount() {
       />
       <Input 
           placeholder="E-mail"
+          keyboardType="email-address"
       />
       <Input 
           placeholder="Senha"
+          secureTextEntry={true}
+          value={password}
+          onChangeText={(text) => setPassword(text)}
       />
       <Input 
           placeholder="Confirme a Senha"
+          secureTextEntry={true}
+          value={confirmPassword}
+          onChangeText={(text) => setConfirmPassword(text)}
       />
       <Button 
         title="Crie e acessar"
