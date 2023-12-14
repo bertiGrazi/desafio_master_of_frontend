@@ -1,3 +1,11 @@
+<!-- ![MasterOfFrontend](./masteroffrontend/github/preview_app.gif) -->
+
+## 📺 Preview 
+---
+<h1 align="center">
+  <img alt="MasterOfFrontend" height="500" title="MasterOfFrontend" src="./masteroffrontend/github/preview_app.gif" />
+</h1>
+
 ## 🖥️ Projeto 
 ---
 Esse é um projeto de desenvolvimento de um aplicativo de anúncios de carros online, focado na criação de uma tela de login para acesso, seguido por uma lista de carros anunciados com a opção de adicionar novos anúncios. Cada anúncio exibe detalhes como foto, marca, modelo, ano, valor e cidade. Ao clicar em um anúncio, é exibida uma tela de detalhes do veículo, incluindo um botão simulado para contato com o proprietário.
@@ -26,7 +34,17 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [✅] Tela de detalhes do veículo
 - [✅] Botão simulado para contato com o proprietário
 
-### Autor
+## 🚩 Executando o projeto
+---
+Utilize **npm install** para instalar as dependências do projeto. <b>Certifique que tenha Expo instalado no computador ou emulador. </b>
+</br>
+Em seguida, inicie o projeto.
+
+```cl
+npx expo start
+```
+
+## 👩‍💻 Autor
 ---
 <a href="https://www.linkedin.com/in/graziellilimaberti/">
   <sub><b>Grazielli L. Berti</b></sub>
